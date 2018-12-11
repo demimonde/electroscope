@@ -1,0 +1,49 @@
+<!doctype HTML>
+<html>
+
+<head>
+  <title>Upload</title>
+</head>
+
+<body>
+  <input id="file" type="file">
+  <a id="btn" href="#">Upload</a>
+</body>
+<script>
+  var fileInput = document.getElementById('file')
+  var btn = document.querySelector('#btn')
+  btn.onclick = function () {
+    console.log(fileInput.files)
+    // var reader = new FileReader();
+    // reader.addEventListener('load', function () {
+    //   var base64encoded = reader.result;
+    //   console.log('ok')
+    //   executeUpload(base64encoded, f.name)
+    // }, false)
+    // if (f) {
+    //   reader.readAsDataURL(f)
+    // }
+  }
+
+  function executeUpload(base64encoded, filename) {
+    var headers = new Headers();
+    var options = new RequestOptions({
+      headers: headers
+    })
+
+    var data = { filename: filename, data: base64encoded }
+
+    // this.http.post(encodeURI('/upload/' + filename), data, options)
+
+    //   .subscribe(
+
+    //     data => console.log(data),
+
+    //     error => console.log(error)
+
+    //   );
+  }
+
+</script>
+
+</html>

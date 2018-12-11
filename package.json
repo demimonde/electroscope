@@ -4,7 +4,9 @@
   "description": "The Azure Function To Return Metadata Of Received Base64-Encoded Image.",
   "main": "index.js",
   "scripts": {
-    "build": "alamode src/mnp -o mnp -s",
+    "upload": "alamode src/upload -o upload -s",
+    "form": "alamode src/form -o form -s",
+    "build": "yarn-s upload form",
     "letsencrypt": "alamode src/letsencrypt -o letsencrypt -s",
     "doc": "doc documentary -o README.md"
   },
@@ -16,7 +18,8 @@
   "license": "MIT",
   "devDependencies": {
     "alamode": "1.6.1",
-    "greenlock-cli": "2.3.1"
+    "greenlock-cli": "2.3.1",
+    "yarn-s": "1.1.0"
   },
   "keywords": [
     "electroscope",
@@ -27,6 +30,10 @@
   },
   "homepage": "https://github.com/demimonde/electroscope#readme",
   "dependencies": {
-    "@wrote/read": "1.0.0"
+    "@wrote/read": "1.0.0",
+    "@wrote/write": "1.0.0",
+    "dist-exiftool": "10.53.0",
+    "node-exiftool": "2.3.0",
+    "uuid": "3.3.2"
   }
 }

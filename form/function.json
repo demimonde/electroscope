@@ -4,11 +4,11 @@
     {
       "authLevel": "anonymous",
       "type": "httpTrigger",
+      "route": "form",
       "direction": "in",
       "name": "req",
       "methods": [
-        "get",
-        "post"
+        "get"
       ]
     },
     {
