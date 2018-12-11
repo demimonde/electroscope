@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "alamode src/mnp -o mnp -s",
+    "letsencrypt": "alamode src/letsencrypt -o letsencrypt -s",
     "doc": "doc documentary -o README.md"
   },
   "repository": {
@@ -14,7 +15,8 @@
   "author": "Anton <anton@adc.sh>",
   "license": "MIT",
   "devDependencies": {
-    "alamode": "1.6.1"
+    "alamode": "1.6.1",
+    "greenlock-cli": "2.3.1"
   },
   "keywords": [
     "electroscope",
@@ -23,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/demimonde/electroscope/issues"
   },
-  "homepage": "https://github.com/demimonde/electroscope#readme"
+  "homepage": "https://github.com/demimonde/electroscope#readme",
+  "dependencies": {
+    "@wrote/read": "1.0.0"
+  }
 }
