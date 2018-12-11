@@ -1,0 +1,27 @@
+{
+  "name": "@demimonde/electroscope",
+  "version": "0.0.0",
+  "description": "The Azure Function To Return Metadata Of Received Base64-Encoded Image.",
+  "main": "index.js",
+  "scripts": {
+    "build": "alamode src/mnp -o mnp -s",
+    "doc": "doc documentary -o README.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/demimonde/electroscope.git"
+  },
+  "author": "Anton <anton@adc.sh>",
+  "license": "MIT",
+  "devDependencies": {
+    "alamode": "1.6.1"
+  },
+  "keywords": [
+    "electroscope",
+    "demimonde"
+  ],
+  "bugs": {
+    "url": "https://github.com/demimonde/electroscope/issues"
+  },
+  "homepage": "https://github.com/demimonde/electroscope#readme"
+}
