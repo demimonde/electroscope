@@ -1,7 +1,6 @@
-import write from '@wrote/write'
-import { v4 } from 'uuid'
 import { ExiftoolProcess } from 'node-exiftool'
 import exiftool from 'dist-exiftool'
+import { Readable } from 'stream'
 
 function decodeBase64Image(context, data) {
   const matches = data.match(/^data:([A-Za-z-+/]+);base64,(.+)$/)
@@ -19,20 +18,28 @@ function decodeBase64Image(context, data) {
 }
 
 export default async function (context, req) {
-  context.log('JavaScript HTTP trigger function processed a request.')
-
-  const response = decodeBase64Image(context, req.body.data)
-  context.log('filename: ' + req.name)
-  context.log('filetype: ' + response.type)
-  const v = v4()
-  await write(v)
+  const image = decodeBase64Image(context, req.body.data)
+  context.log('Filename: %s', req.name)
+  context.log('Filetype: %s', image.type)
   const ep = new ExiftoolProcess(exiftool)
   await ep.open()
-  const [data] = await ep.readMetadata(v, ['n'])
-  context.res = {
-    body: data,
+  const rs = new Readable({
+    read() {
+      this.push(image.data)
+      this.push(null)
+    },
+  })
+  const { data, error } = await ep.readMetadata(rs, ['n'])
+  if (error) {
+    throw error
   }
-
+  await ep.close()
+  context.res = {
+    body: data[0],
+    headers: {
+      'content-type': 'application/json',
+    },
+  }
   // if (req.query.name || (req.body && req.body.name)) {
   //   context.res = {
   //     // status: 200, /* Defaults to 200 */

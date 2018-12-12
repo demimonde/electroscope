@@ -7,6 +7,26 @@
       "request": "attach",
       "port": 5858,
       "preLaunchTask": "runFunctionsHost"
-    }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Zoroaster",
+      "program": "${workspaceFolder}/node_modules/.bin/zoroaster",
+      "env": {
+      },
+      "console": "integratedTerminal",
+      "args": [
+        "test/spec",
+        // "test/mask",
+        "-a",
+        "-w",
+        "-t",
+        "9999999"
+      ],
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ]
+    },
   ]
 }

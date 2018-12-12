@@ -1,5 +1,5 @@
 import { equal } from 'zoroaster'
-import form from '../form'
+import form from '../../../form/form'
 
 const T = {
   async 'execs the form'() {

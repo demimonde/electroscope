@@ -8,6 +8,7 @@
     "form": "alamode src/form -o form -s",
     "closure": "node_modules/google-closure-library/closure/bin/calcdeps.py -i form/files/script.js -p node_modules/google-closure-library/closure/ -o compiled -c node_modules/google-closure-compiler-java/compiler.jar -f \"--compilation_level=ADVANCED\" > form/files/script-closure.js",
     "build": "yarn-s upload form",
+    "test": "zoroaster test/spec -a",
     "letsencrypt": "alamode src/letsencrypt -o letsencrypt -s",
     "doc": "doc documentary -o README.md"
   },
@@ -19,7 +20,7 @@
   "license": "MIT",
   "devDependencies": {
     "alamode": "1.6.1",
-    "google-closure-compiler": "20181125.0.1",
+    "google-closure-compiler-java": "20181125.0.1",
     "google-closure-library": "20180910.0.0",
     "greenlock-cli": "2.3.1",
     "yarn-s": "1.1.0",
@@ -35,7 +36,6 @@
   "homepage": "https://github.com/demimonde/electroscope#readme",
   "dependencies": {
     "@wrote/read": "1.0.0",
-    "@wrote/write": "1.0.0",
     "dist-exiftool": "10.53.0",
     "mime-types": "2.1.21",
     "node-exiftool": "2.3.0",
