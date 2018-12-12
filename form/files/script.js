@@ -1,15 +1,15 @@
 /* eslint-env browser */
 goog.require('goog.dom')
 goog.require('goog.dom.TagName')
+goog.require('goog.net.XhrIo')
+goog.require('goog.format.JsonPrettyPrinter')
 
-function sayHi() {
-  const newdiv = goog.dom.createDom(goog.dom.TagName.H1, {
+function sayHi(data) {
+  const pre = goog.dom.createDom(goog.dom.TagName.PRE, {
     style: 'background-color:#EEE',
-  }, 'Hello world!')
-  goog.dom.appendChild(document.body, newdiv)
+  }, data)
+  goog.dom.appendChild(document.body, pre)
 }
-
-window.sayHi = sayHi
 
 const fileInput = document.getElementById('file')
 const btn = document.querySelector('#btn')
@@ -18,15 +18,23 @@ btn.onclick = function () {
   if (!fileInput.files.length) return
   const file = fileInput.files[0]
   const reader = new FileReader()
-  reader.addEventListener('load', function () {
+  reader.addEventListener('load', async function () {
     const base64encoded = reader.result
-    executeUpload(base64encoded, file.name)
-    console.log('ok')
+    const res = await executeUpload(base64encoded)
+    const f = new goog.format.JsonPrettyPrinter()
+    const html = f.format(res)
+    sayHi(html)
   }, false)
   reader.readAsDataURL(file)
 }
 
-function executeUpload(base64encoded, filename) {
-  const headers = new Headers()
-  const data = { filename: filename, data: base64encoded }
+async function executeUpload(base64encoded) {
+  const res = await new Promise((r) => {
+    goog.net.XhrIo.send('/api/upload/test-api', function(e) {
+      var xhr = e.target
+      var obj = xhr.getResponseJson()
+      r(obj)
+    }, 'POST', base64encoded)
+  })
+  return res
 }
