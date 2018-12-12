@@ -4,7 +4,7 @@
     {
       "authLevel": "anonymous",
       "type": "httpTrigger",
-      "route": "form",
+      "route": "form/{file}",
       "direction": "in",
       "name": "req",
       "methods": [
