@@ -4,8 +4,6 @@
   "description": "The Azure Function To Return Metadata Of Received Base64-Encoded Image.",
   "main": "index.js",
   "scripts": {
-    "upload": "alamode src/upload -o upload -s",
-    "form": "alamode src/form -o form -s",
     "closure": "node_modules/google-closure-library/closure/bin/calcdeps.py -i form/files/script.js -p node_modules/google-closure-library/closure/ -o compiled -c node_modules/google-closure-compiler-java/compiler.jar -f \"--compilation_level=ADVANCED\" > form/files/script-closure.js",
     "build": "yarn-s upload form",
     "test": "zoroaster test/spec -a",
