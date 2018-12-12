@@ -3,11 +3,33 @@
 
 <head>
   <title>Upload</title>
+  <style type="text/css">
+    .goog-jsonprettyprinter-propertyname {
+      color: #F00;
+    }
+
+    .goog-jsonprettyprinter-propertyvalue-string {
+      color: #00F;
+    }
+
+    .goog-jsonprettyprinter-propertyvalue-number {
+      color: #0F0;
+    }
+
+    .goog-jsonprettyprinter-propertyvalue-boolean {
+      color: #0F0;
+    }
+
+    .goog-jsonprettyprinter-propertyvalue-null {
+      color: orange;
+    }
+  </style>
 </head>
 
 <body>
   <input id="file" type="file">
   <a id="btn" href="#">Upload</a>
+  <div id="info"></div>
 <!-- start dev -->
   <script src="https://cdn.rawgit.com/google/closure-library/master/closure/goog/base.js"></script>
   <script src="script.js"></script>

@@ -3,12 +3,13 @@ goog.require('goog.dom')
 goog.require('goog.dom.TagName')
 goog.require('goog.net.XhrIo')
 goog.require('goog.format.JsonPrettyPrinter')
+goog.require('goog.html.SafeHtml')
 
 function sayHi(data) {
-  const pre = goog.dom.createDom(goog.dom.TagName.PRE, {
+  const div = goog.dom.createDom(goog.dom.TagName.DIV, {
     style: 'background-color:#EEE',
   }, data)
-  goog.dom.appendChild(document.body, pre)
+  goog.dom.appendChild(document.body, div)
 }
 
 const fileInput = document.getElementById('file')
@@ -21,9 +22,12 @@ btn.onclick = function () {
   reader.addEventListener('load', async function () {
     const base64encoded = reader.result
     const res = await executeUpload(base64encoded)
-    const f = new goog.format.JsonPrettyPrinter()
+    const dem = new goog.format.JsonPrettyPrinter.SafeHtmlDelimiters()
+    dem.lineBreak = goog.html.SafeHtml.BR
+    dem.space = '&nbsp;'
+    const f = new goog.format.JsonPrettyPrinter(dem)
     const html = f.format(res)
-    sayHi(html)
+    document.getElementById('info').innerHTML = html
   }, false)
   reader.readAsDataURL(file)
 }
