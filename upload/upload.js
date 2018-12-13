@@ -1,6 +1,19 @@
 import { ExiftoolProcess } from 'node-exiftool'
 import exiftool from 'dist-exiftool'
 import { Readable } from 'stream'
+import { jqt } from 'rqt'
+import { stringify } from 'querystring'
+
+const getLocation = async (lat, long) => {
+  const s = stringify({
+    'subscription-key': process.env.AZURE_MAPS_KEY,
+    'api-version': '1.0',
+    query: `${lat},${long}`,
+  })
+  const res = await jqt('https://atlas.microsoft.com/search/address/reverse/json?'
+    + s)
+  return res
+}
 
 function decodeBase64Image(context, data) {
   const matches = data.match(/^data:([A-Za-z-+/]+);base64,(.+)$/)
@@ -34,8 +47,14 @@ export default async function (context, req) {
     throw error
   }
   await ep.close()
+  const [body] = data
+  if (body.GPSLatitude && body.GPSLongitude) {
+    const loc = await getLocation(body.GPSLatitude, body.GPSLongitude)
+    context.log(loc)
+    body.Location = loc
+  }
   context.res = {
-    body: data[0],
+    body,
     headers: {
       'content-type': 'application/json',
     },

@@ -23,15 +23,49 @@
     .goog-jsonprettyprinter-propertyvalue-null {
       color: orange;
     }
+    .Drop {
+      border: 0.5em dashed salmon;
+      background: #fce0e0;
+      box-sizing: border-box;
+    }
+    .DragActive {
+      opacity: 0.5;
+    }
+    .Metadata {
+      background-color:#eff0f1;
+    }
+    .goog-zippy-header img {
+      width: 19px;
+      height: 16px;
+    }
+    .goog-zippy-expanded img {
+      background-image: url('minus.png');
+    }
+    .goog-zippy-collapsed img {
+      background-image: url('plus.png');
+    }
   </style>
 </head>
 
 <body>
+  <div id="drop-zone" class="Drop" style="display:block;">
+    Drag Files In Here
+  </div>
   <input id="file" type="file">
   <a id="btn" href="#">Upload</a>
   <div id="info"></div>
+  <script src="exif2css.js"></script>
 <!-- start dev -->
   <script src="https://cdn.rawgit.com/google/closure-library/master/closure/goog/base.js"></script>
+  <script>
+    goog.require('goog.dom')
+    goog.require('goog.dom.TagName')
+    goog.require('goog.net.XhrIo')
+    goog.require('goog.format.JsonPrettyPrinter')
+    goog.require('goog.html.SafeHtml')
+    goog.require('goog.events.FileDropHandler')
+    goog.require('goog.ui.AnimatedZippy')
+ </script>
   <script src="script.js"></script>
 <!-- end dev -->
 <!-- start production -->

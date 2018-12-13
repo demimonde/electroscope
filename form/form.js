@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import read from '@wrote/read'
+import { readBuffer } from '@wrote/read'
 import mime from 'mime-types'
 
 /**
@@ -7,14 +7,19 @@ import mime from 'mime-types'
  */
 export default async function (context) {
   try {
-    const b = await read(resolve(__dirname, 'files', context.bindingData.file))
+    let body
+    const type = mime.lookup(context.bindingData.file)
+    body = await readBuffer(resolve(__dirname, 'files', context.bindingData.file))
     const { NODE_ENV = 'dev' } = process.env
-    const body = replaceBody(b, NODE_ENV)
+    if (['application/javascript', 'text/html'].includes(type)) {
+      const bb = replaceBody(`${body}`, NODE_ENV)
+      body = replaceEnv(bb)
+    }
 
     context.res = {
       body,
       headers: {
-        'content-type': mime.lookup(context.bindingData.file),
+        'content-type': type,
       },
     }
   } catch (err) {
@@ -23,6 +28,15 @@ export default async function (context) {
       body: '404',
     }
   }
+}
+
+export const replaceEnv = (body) => {
+  const r = body.replace(/<!-- ENV (.+?) -->/g, (m, env) => {
+    const p = process.env[env]
+    if (p) return p
+    return m
+  })
+  return r
 }
 
 export const replaceBody = (body, env) => body.replace(/<!-- start (\w+) -->\n?([\s\S]+?)\n?<!-- end \1 -->/g,(match, e, code) => {

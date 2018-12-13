@@ -37,6 +37,7 @@
     "dist-exiftool": "10.53.0",
     "mime-types": "2.1.21",
     "node-exiftool": "2.3.0",
+    "rqt": "3.0.1",
     "uuid": "3.3.2"
   }
 }

@@ -29,6 +29,14 @@
   resolved "https://registry.yarnpkg.com/@coolaj86/urequest/-/urequest-1.3.6.tgz#e962d62000d7786a3920e5ef2c863223353b2e7f"
   integrity sha512-9rBXLFSb5D19opGeXdD/WuiFJsA4Pk2r8VUGEAeUZUxB1a2zB47K85BKAx3Gy9i4nZwg22ejlJA+q9DVrpQlbA==
 
+"@rqt/aqt@1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@rqt/aqt/-/aqt-1.1.3.tgz#a0acb5eeded94d5063c0fc7d734db7d917835b37"
+  integrity sha512-edcE80Ze6ZD5PGULqij7PNh1F6yH+BUNuWUISK88vG7u0skVPs1eMazGLunkPJ7/Q6+U2sx5z3TwEcKDCfPQVg==
+  dependencies:
+    catchment "3.1.1"
+    erotic "2.0.1"
+
 "@wrote/ensure-path@1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@wrote/ensure-path/-/ensure-path-1.0.3.tgz#7faeff4ebb5b3972b745e0cc85f3e06cbca51d51"
@@ -574,6 +582,13 @@ restream@3.4.1:
   integrity sha512-aWur+X3dItQjmw2c7KPiyy2BEw20+0d1nk0IAgVEqcvNrGh7MZ4stZ1KnSr5ekcHwI9VDP/3lJ6N2+nLIZduLA==
   dependencies:
     "@artdeco/clean-stack" "1.0.0"
+
+rqt@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/rqt/-/rqt-3.0.1.tgz#bf2569f69af0415eafb30ac67f1014fa88a83195"
+  integrity sha512-7IJgyhAVqctLLsRuvkY1iC6cp2B2w/YpbHmuIe50195fZNcJBt05FcafDjOuNraLe0T8cjrWBE2pBGcw7noPXw==
+  dependencies:
+    "@rqt/aqt" "1.1.3"
 
 rsa-compat@^1.5.0, rsa-compat@^1.5.1:
   version "1.6.1"
