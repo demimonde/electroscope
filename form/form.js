@@ -7,9 +7,11 @@ import mime from 'mime-types'
  */
 export default async function (context) {
   try {
+    const { file } = context.bindingData
+    // if (!/\./.test(file)) file = `${file}.js`
     let body
-    const type = mime.lookup(context.bindingData.file)
-    body = await readBuffer(resolve(__dirname, 'files', context.bindingData.file))
+    const type = mime.lookup(file)
+    body = await readBuffer(resolve(__dirname, 'files', file))
     const { NODE_ENV = 'dev' } = process.env
     if (['application/javascript', 'text/html'].includes(type)) {
       const bb = replaceBody(`${body}`, NODE_ENV)
@@ -19,6 +21,9 @@ export default async function (context) {
     context.res = {
       body,
       headers: {
+        ...(type == 'application/javascript' && process.env.SERVE_SOURCE_MAP ? {
+          SourceMap: `${file}.map`,
+        } : {} ),
         'content-type': type,
       },
     }
@@ -31,7 +36,7 @@ export default async function (context) {
 }
 
 export const replaceEnv = (body) => {
-  const r = body.replace(/<!-- ENV (.+?) -->/g, (m, env) => {
+  const r = body.replace(/(?:<|\\x3c)!-- ENV (.+?) --(?:>|\\x3e)/g, (m, env) => {
     const p = process.env[env]
     if (p) return p
     return m

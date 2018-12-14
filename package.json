@@ -21,6 +21,7 @@
     "google-closure-compiler-java": "20181125.0.1",
     "google-closure-library": "20180910.0.0",
     "greenlock-cli": "2.3.1",
+    "spawncommand": "2.1.0",
     "yarn-s": "1.1.0",
     "zoroaster": "3.6.6"
   },
