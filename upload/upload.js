@@ -31,28 +31,42 @@ function decodeBase64Image(context, data) {
 }
 
 export default async function (context, req) {
-  const apiKey = context.bindingData.apiKey
-  context.log(apiKey)
-  const image = decodeBase64Image(context, req.body)
-  const ep = new ExiftoolProcess(exiftool)
-  await ep.open()
-  const rs = new Readable({
-    read() {
-      this.push(image.data)
-      this.push(null)
-    },
-  })
-  const { data, error } = await ep.readMetadata(rs, ['n'])
-  if (error) {
-    throw error
+  if (req.method == 'GET') {
+    if (req.body) req.body = req.body.slice(0, 100)
+    if (req.rawBody) req.rawBody = req.rawBody.slice(0, 100)
+    const body = JSON.stringify(req, null, 2)
+    context.res = { body }
+    return
+  } else if (req.method == 'POST') {
+    if (req.body) req.body = `${req.body.slice(0, 30)}...`
+    if (req.rawBody) req.rawBody = req.rawBody.slice(0, 200)
+    const body = JSON.stringify(req, null, 2)
+    context.res = { body }
+    return
   }
-  await ep.close()
-  const [body] = data
-  if (body.GPSLatitude && body.GPSLongitude) {
-    const loc = await getLocation(body.GPSLatitude, body.GPSLongitude)
-    context.log(loc)
-    body.Location = loc
-  }
+  // const apiKey = context.bindingData.apiKey
+  // context.log(apiKey)
+
+  // const image = decodeBase64Image(context, req.body)
+  // const ep = new ExiftoolProcess(exiftool)
+  // await ep.open()
+  // const rs = new Readable({
+  //   read() {
+  //     this.push(image.data)
+  //     this.push(null)
+  //   },
+  // })
+  // const { data, error } = await ep.readMetadata(rs, ['n'])
+  // if (error) {
+  //   throw error
+  // }
+  // await ep.close()
+  // const [body] = data
+  // if (body.GPSLatitude && body.GPSLongitude) {
+  //   const loc = await getLocation(body.GPSLatitude, body.GPSLongitude)
+  //   context.log(loc)
+  //   body.Location = loc
+  // }
   context.res = {
     body,
     headers: {
