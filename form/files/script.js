@@ -23,10 +23,10 @@ const fileInput = document.getElementById('file')
 const btn = document.querySelector('#btn')
 
 const dropZone = goog.dom.getElement('drop-zone')
-const handler = new goog.events.FileDropHandler(dropZone, true)
-goog.events.listen(handler, goog.events.FileDropHandler.EventType.DROP, (e) => {
+new goog.events.FileDropHandler(dropZone, true)
+goog.events.listen(dropZone, 'drop', (e) => {
   const { files } = e.getBrowserEvent().dataTransfer
-  debugger
+  fileInput.files = files
 })
 const dragEnter = (e) => {
   addClass(e.target, 'DragActive')
